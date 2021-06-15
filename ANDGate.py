@@ -4,10 +4,10 @@ from Perceptron import Perceptron
 class ANDGate:
 	def __init__(self,accuracy):
 		self.acc = accuracy
+		self.AND = Perceptron(2, bias=-1.0)
 		return None
 		
-	def train(self,sessions,Generate: bool = True): #Set default to 50.
-		print("AND training.\n")
+	def train(self,sessions,Generate: bool = True,verbose =False): #Set default to 50.
 		generate_training_set = Generate
 		num_train = 100
 		generate_validation_set = Generate
@@ -44,23 +44,26 @@ class ANDGate:
 
 
 		# Create Perceptron
-		AND = Perceptron(2, bias=-1.0)
 
-		print(AND.weights)
-		valid_percentage = AND.validate(validate_examples, validate_labels, verbose=True)
+		print(self.AND.weights)
+		valid_percentage = self.AND.validate(validate_examples, validate_labels, verbose=True)
 		print(valid_percentage)
 		i = 0
 		while valid_percentage < self.acc: # We want our Perceptron to have an accuracy of at least 80%
 
 			i += 1
 
-			AND.train(training_examples, training_labels, 0.2)  # Train our Perceptron
+			self.AND.train(training_examples, training_labels, 0.2)  # Train our Perceptron
 			print('------ Iteration ' + str(i) + ' ------')
-			print(AND.weights)
-			valid_percentage = AND.validate(validate_examples, validate_labels, verbose=True) # Validate it
+			print(self.AND.weights)
+			valid_percentage = self.AND.validate(validate_examples, validate_labels, verbose=True) # Validate it
 			print(valid_percentage)
 
 			# This is just to break the training if it takes over 50 iterations. (For demonstration purposes)
 			# You shouldn't need to do this as your networks may require much longer to train. 
 			if i == sessions: 
 				break
+				
+				
+	def activate(inputs):
+		return self.AND.activate(inputs)
