@@ -2,9 +2,12 @@ import random
 from Perceptron import Perceptron
 
 class ORGate:
-	def __init__(self):
-
-	def Train(self,sessions,Generate: bool = True): #Set default to 50.
+	def __init__(self,accuracy):
+		self.acc = accuracy
+		return None
+		
+	def train(self,sessions,Generate: bool = True): #Set default to 50.
+		print("OR training.\n")
 		generate_training_set = Generate
 		num_train = 100
 		generate_validation_set = Generate
@@ -47,7 +50,7 @@ class ORGate:
 		valid_percentage = OR.validate(validate_examples, validate_labels, verbose=True)
 		print(valid_percentage)
 		i = 0
-		while valid_percentage < 0.98: # We want our Perceptron to have an accuracy of at least 80%
+		while valid_percentage < self.acc: # We want our Perceptron to have an accuracy of at least 80%
 
 			i += 1
 
@@ -59,5 +62,5 @@ class ORGate:
 
 			# This is just to break the training if it takes over 50 iterations. (For demonstration purposes)
 			# You shouldn't need to do this as your networks may require much longer to train. 
-			if i == 50: 
+			if i == sessions: 
 				break

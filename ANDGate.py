@@ -2,9 +2,12 @@ import random
 from Perceptron import Perceptron
 
 class ANDGate:
-	def __init__(self):
+	def __init__(self,accuracy):
+		self.acc = accuracy
+		return None
 		
-	def Train(self,sessions,Generate: bool = True): #Set default to 50.
+	def train(self,sessions,Generate: bool = True): #Set default to 50.
+		print("AND training.\n")
 		generate_training_set = Generate
 		num_train = 100
 		generate_validation_set = Generate
@@ -47,7 +50,7 @@ class ANDGate:
 		valid_percentage = AND.validate(validate_examples, validate_labels, verbose=True)
 		print(valid_percentage)
 		i = 0
-		while valid_percentage < 0.98: # We want our Perceptron to have an accuracy of at least 80%
+		while valid_percentage < self.acc: # We want our Perceptron to have an accuracy of at least 80%
 
 			i += 1
 
