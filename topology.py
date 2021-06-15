@@ -9,7 +9,7 @@ class topology:
 		self.ORh = ORGate(accuracy)
 		self.NOTh = NOTGate(accuracy)
 		
-	def train(self,sessions,Generate:bool = True,verbose:bool = False):
+	def train(self,sessions,verbose,Generate):
 		print("Training GATE_0...\n")
 		self.ANDh.train(sessions,Generate,verbose)
 		print("Training GATE_1...\n")
@@ -22,10 +22,14 @@ class topology:
 	def input():
 		return 0
 		
-	def XORGate(inputs):
+	def XORGate(self,inputs: [float]):
 		y1 = self.ANDh.activate(inputs)
+		print(y1)
 		y1 = self.NOTh.activate([y1])
-		
+		print(y1)
 		y2 = self.ORh.activate(inputs)
+		print(y2)
+		
+		print(self.ANDo.activate([y1,y2]))
 		
 		return self.ANDo.activate([y1,y2])

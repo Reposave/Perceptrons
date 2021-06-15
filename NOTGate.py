@@ -4,10 +4,10 @@ from Perceptron import Perceptron
 class NOTGate:
 	def __init__(self,accuracy):
 		self.acc = accuracy
-		self.NOT = Perceptron(1, bias=0.0)
+		self.NOT = Perceptron(1, bias=1.0)
 		return None
 		
-	def train(self,sessions,Generate: bool = True,verbose =False): #Set default to 50.
+	def train(self,sessions,Generate: bool = True,verbose: bool =False): #Set default to 50.
 		generate_training_set = Generate
 		num_train = 100
 		generate_validation_set = Generate
@@ -44,26 +44,32 @@ class NOTGate:
 
 
 		# Create Perceptron
-
-		print(self.NOT.weights)
+		if(verbose):
+			print(self.NOT.weights)
 		valid_percentage = self.NOT.validate(validate_examples, validate_labels, verbose)
-		print(valid_percentage)
+		if(verbose):
+			print(valid_percentage)
+			
 		i = 0
 		while valid_percentage < self.acc: # We want our Perceptron to have an accuracy of at least 80%
 
 			i += 1
 
-			self.NOT.train(training_examples, training_labels, 0.2)  # Train our Perceptron
-			print('------ Iteration ' + str(i) + ' ------')
-			print(self.NOT.weights)
+			self.NOT.train(training_examples, training_labels, 0.4)  # Train our Perceptron
+			if(verbose):
+				print('------ Iteration ' + str(i) + ' ------')
+				print(self.NOT.weights)
 			valid_percentage = self.NOT.validate(validate_examples, validate_labels, verbose) # Validate it
-			print(valid_percentage)
+			if(verbose):
+				print(valid_percentage)
 
 			# This is just to break the training if it takes over 50 iterations. (For demonstration purposes)
 			# You shouldn't need to do this as your networks may require much longer to train. 
 			if i == sessions: 
 				break
 				
-	def activate(inputs):
-		return self.AND.activate(inputs)
+		print("NOT"+str(valid_percentage))	
+		
+	def activate(self,inputs):
+		return self.NOT.activate(inputs)
 			

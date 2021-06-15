@@ -7,7 +7,7 @@ class ORGate:
 		self.OR = Perceptron(2, bias=-1.5)
 		return None
 		
-	def train(self,sessions,Generate: bool = True,verbose =False): #Set default to 50.
+	def train(self,sessions,Generate: bool = True,verbose:bool =False): #Set default to 50.
 		generate_training_set = Generate
 		num_train = 100
 		generate_validation_set = Generate
@@ -31,7 +31,7 @@ class ORGate:
 			for i in range(num_train):
 				training_examples.append([random.random(), random.random()])
 				# We want our perceptron to be noise tolerant, so we label all examples where x1 and x2 > 0.8 as 1.0
-				training_labels.append(1.0 if training_examples[i][0] > 0.75 or training_examples[i][1] > 0.75 else 0.0)
+				training_labels.append(1.0 if (training_examples[i][0] > 0.75 or training_examples[i][1] > 0.75) else 0.0)
 
 		if generate_validation_set:
 
@@ -40,29 +40,34 @@ class ORGate:
 
 			for i in range(num_train):
 				validate_examples.append([random.random(), random.random()])
-				validate_labels.append(1.0 if validate_examples[i][0] > 0.75 or validate_examples[i][1] > 0.75 else 0.0)
+				validate_labels.append(1.0 if (validate_examples[i][0] > 0.75 or validate_examples[i][1] > 0.75) else 0.0)
 
 
 		# Create Perceptron
-
-		print(self.OR.weights)
+		if(verbose):
+			print(self.OR.weights)
 		valid_percentage = self.OR.validate(validate_examples, validate_labels, verbose)
-		print(valid_percentage)
+		if(verbose):
+			print(valid_percentage)
 		i = 0
 		while valid_percentage < self.acc: # We want our Perceptron to have an accuracy of at least 80%
 
 			i += 1
 
-			self.OR.train(training_examples, training_labels, 0.2)  # Train our Perceptron
-			print('------ Iteration ' + str(i) + ' ------')
-			print(self.OR.weights)
+			self.OR.train(training_examples, training_labels, 0.4)  # Train our Perceptron
+			if(verbose):
+				print('------ Iteration ' + str(i) + ' ------')
+				print(self.OR.weights)
 			valid_percentage = self.OR.validate(validate_examples, validate_labels, verbose) # Validate it
-			print(valid_percentage)
+			if(verbose):
+				print(valid_percentage)
 
 			# This is just to break the training if it takes over 50 iterations. (For demonstration purposes)
 			# You shouldn't need to do this as your networks may require much longer to train. 
 			if i == sessions: 
 				break
 				
-	def activate(inputs):
-		return self.AND.activate(inputs)
+		print("OR"+str(valid_percentage))
+			
+	def activate(self,inputs):
+		return self.OR.activate(inputs)
