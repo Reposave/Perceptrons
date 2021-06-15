@@ -1,5 +1,4 @@
-  .
-  # Simple Perceptron class
+# Simple Perceptron class
 # June 2021
 
 import random

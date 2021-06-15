@@ -15,7 +15,7 @@ if __name__ == '__main__':
 						[0.0, 1.0],
 						[0.0, 0.0]]
 
-	training_labels = [1.0, 0.0, 0.0, 0.0]
+	training_labels = [0.0, 1.0, 1.0, 0.0]
 
 	validate_examples = training_examples
 	validate_labels = training_labels
@@ -28,7 +28,7 @@ if __name__ == '__main__':
 		for i in range(num_train):
 			training_examples.append([random.random(), random.random()])
 			# We want our perceptron to be noise tolerant, so we label all examples where x1 and x2 > 0.8 as 1.0
-			training_labels.append(1.0 if training_examples[i][0] > 0.75 and training_examples[i][1] > 0.75 else 0.0)
+			training_labels.append(1.0 if training_examples[i][0] > 0.8 and training_examples[i][1] > 0.8 else 0.0)
 
 	if generate_validation_set:
 
@@ -37,24 +37,24 @@ if __name__ == '__main__':
 
 		for i in range(num_train):
 			validate_examples.append([random.random(), random.random()])
-			validate_labels.append(1.0 if validate_examples[i][0] > 0.75 and validate_examples[i][1] > 0.75 else 0.0)
+			validate_labels.append(1.0 if validate_examples[i][0] > 0.8 and validate_examples[i][1] > 0.8 else 0.0)
 
 
 	# Create Perceptron
-	AND = Perceptron(2, bias=-1.0)
+	XOR = Perceptron(2, bias=-1.0)
 
-	print(AND.weights)
-	valid_percentage = AND.validate(validate_examples, validate_labels, verbose=True)
+	print(XOR.weights)
+	valid_percentage = XOR.validate(validate_examples, validate_labels, verbose=True)
 	print(valid_percentage)
 	i = 0
 	while valid_percentage < 0.98: # We want our Perceptron to have an accuracy of at least 80%
 
 		i += 1
 
-		AND.train(training_examples, training_labels, 0.2)  # Train our Perceptron
+		XOR.train(training_examples, training_labels, 0.2)  # Train our Perceptron
 		print('------ Iteration ' + str(i) + ' ------')
-		print(AND.weights)
-		valid_percentage = AND.validate(validate_examples, validate_labels, verbose=True) # Validate it
+		print(XOR.weights)
+		valid_percentage = XOR.validate(validate_examples, validate_labels, verbose=True) # Validate it
 		print(valid_percentage)
 
 		# This is just to break the training if it takes over 50 iterations. (For demonstration purposes)
