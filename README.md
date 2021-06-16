@@ -1,33 +1,30 @@
 #How to Run
-In the terminal, type 'make' to  automatically create a virtual environment and install required packages.
+In the terminal, type 'make' to  automatically create a virtual environment and install required packages(no requirements necessary.)
 
 'make clean' to remove binary files.
 
 to run, type the following:
 
 ```bash
-	python3 ValueIteration.py width height -start x y -end x y -k mines -gamma y
+	python3 XOR.py
 ```
-where:
-x and y are int coordinates of starting or end points.
-mines is the number of mines
-y is the discount rate.
+If you wish to edit outputs of the program, a few parameters can be changed in XOR.py:
+verbose, set to TRUE, and it will output the iterations the Perceptron class goes through.
+seeGates, set to TRUE, will print the outputs of each gate in the XOR network.
+generateSets will generate training examples and validation sets at runtime.
+num_of_training_sessions specifies how many iterations before the training should stop.
 
-```bash
-	python3 QLearning.py 10 10 width height -start x y -end x y -k mines -gamma y -learning n -epochs e
-```
-where:
-n is the learning rate
-e is the episodes/epochs
+You can also edit the gateTrainAccuracy variable. An accuracy above 0.96 may take very long to train or not even complete.
 
 #FILES
-ValueIteration.py implements the Value iterative method of reinforcement learning and generates values for all the states.
+Perceptron.py contains the algorithm that calculates, stores weights and returns weighted sums when needed.
 
-QLearning.py performs the other type of reinforcement learning. Note: The end point starts with a Q value of 100 and the rewards to get to this state are also 100.
+ANDGate.py trains a perceptron using AND logic behaviour. It can also generate the training sets needed at runtime.
 
-Animate.py is required to generate animations of how the Agent advances in the environment using value iteration or q learning.
+ORGate.py trains a perceptron using OR logic behaviour. It can also generate the training sets needed at runtime.
 
-requirements.txt lists the required packages to be installed.
+NOTGate.py trains a perceptron using NOT logic behaviour. It can also generate the training sets needed at runtime.
 
-.gitignore excludes binary files from the repository.
+topology.py defines the structure of the XOR network. It initiates the training of necessary gates, accepts inputs and returns outputs for a XOR gate.
 
+XOR.py is the main driver file. Used for user inputs.

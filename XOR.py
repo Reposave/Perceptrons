@@ -5,6 +5,13 @@ if __name__ == '__main__':
 	
 	XOR = topology(gateTrainAccuracy)
 	
+	#--Default--
+	#gateTrainAccuracy = 0.96
+	#verbose = False	#Prints Perceptron training information.
+	#seeGates = False #Set to True to see each gate's output.
+	#generateSets = True	#Generate training and validation examples.
+	#num_of_training_sessions = -1  #set to -1 to train until accuracy reached.
+
 	verbose = False	#Prints Perceptron training information.
 	seeGates = False #Set to True to see each gate's output.
 	generateSets = True	#Generate training and validation examples.
