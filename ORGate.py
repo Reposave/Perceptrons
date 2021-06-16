@@ -2,9 +2,10 @@ import random
 from Perceptron import Perceptron
 
 class ORGate:
-	def __init__(self,accuracy):
+	def __init__(self,accuracy,learning_rate):
 		self.acc = accuracy
 		self.OR = Perceptron(2, bias=-2.5)
+		self.learning_rate = learning_rate
 		return None
 	#Trains the perceptron.
 	def train(self,sessions,Generate: bool = True,verbose:bool =False): #Set default to 50.
@@ -59,7 +60,7 @@ class ORGate:
 
 			i += 1
 
-			self.OR.train(training_examples, training_labels, 0.8)  # Train our Perceptron
+			self.OR.train(training_examples, training_labels, self.learning_rate)  # Train our Perceptron
 			if(verbose):
 				print('------ Iteration ' + str(i) + ' ------')
 				print(self.OR.weights)

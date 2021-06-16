@@ -2,9 +2,10 @@ import random
 from Perceptron import Perceptron
 
 class ANDGate:
-	def __init__(self,accuracy):
+	def __init__(self,accuracy,learning_rate):
 		self.acc = accuracy
 		self.AND = Perceptron(2, bias=-1.0)
+		self.learning_rate = learning_rate
 		return None
 	
 	#Trains the perceptron.
@@ -60,7 +61,7 @@ class ANDGate:
 
 			i += 1
 
-			self.AND.train(training_examples, training_labels, 0.8)  # Train our Perceptron
+			self.AND.train(training_examples, training_labels, self.learning_rate)  # Train our Perceptron
 			if(verbose):
 				print('------ Iteration ' + str(i) + ' ------')
 				print(self.AND.weights)

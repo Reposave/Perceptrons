@@ -1,12 +1,13 @@
 from topology import topology
 
 if __name__ == '__main__':
-	gateTrainAccuracy = 0.96
-	
-	XOR = topology(gateTrainAccuracy)
+	gateTrainAccuracy = 0.94
+	learning_rate = 0.8
+	XOR = topology(gateTrainAccuracy,learning_rate)
 	
 	#--Default--
 	#gateTrainAccuracy = 0.96
+	#learning_rate = 0.8
 	#verbose = False	#Prints Perceptron training information.
 	#seeGates = False #Set to True to see each gate's output.
 	#generateSets = True	#Generate training and validation examples.
@@ -25,7 +26,7 @@ if __name__ == '__main__':
 	
 	while(num!="exit"):
 		inputs = num.split()
-		print(inputs)
+		#print(inputs)
 		a = eval(inputs[0])
 		b = eval(inputs[1])
 		

@@ -2,9 +2,10 @@ import random
 from Perceptron import Perceptron
 
 class NOTGate:
-	def __init__(self,accuracy):
+	def __init__(self,accuracy,learning_rate):
 		self.acc = accuracy
 		self.NOT = Perceptron(1, bias=0.5)
+		self.learning_rate = learning_rate
 		return None
 	
 	#Trains the perceptron.
@@ -56,7 +57,7 @@ class NOTGate:
 
 			i += 1
 
-			self.NOT.train(training_examples, training_labels, 0.8)  # Train our Perceptron
+			self.NOT.train(training_examples, training_labels, self.learning_rate)  # Train our Perceptron
 			if(verbose):
 				print('------ Iteration ' + str(i) + ' ------')
 				print(self.NOT.weights)

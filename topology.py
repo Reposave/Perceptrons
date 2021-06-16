@@ -4,11 +4,11 @@ from NOTGate import NOTGate
 
 class topology:
 	#Initialize each gate.
-	def __init__(self,accuracy):
-		self.ANDh = ANDGate(accuracy)
-		self.ANDo = ANDGate(accuracy)
-		self.ORh = ORGate(accuracy)
-		self.NOTh = NOTGate(accuracy)
+	def __init__(self,accuracy,learning_rate):
+		self.ANDh = ANDGate(accuracy,learning_rate)
+		self.ANDo = ANDGate(accuracy,learning_rate)
+		self.ORh = ORGate(accuracy,learning_rate)
+		self.NOTh = NOTGate(accuracy,learning_rate)
 		
 	#Trains all the gates required by the XOR
 	def train(self,sessions,verbose,Generate):
