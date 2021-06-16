@@ -1,7 +1,7 @@
 from topology import topology
 
 if __name__ == '__main__':
-	XOR = topology(0.70)
+	XOR = topology(0.95)
 	XOR.train(-1,False,True) #set to -1 to train until finished.
 	
 	print("Constructing Network...")

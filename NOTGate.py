@@ -4,14 +4,14 @@ from Perceptron import Perceptron
 class NOTGate:
 	def __init__(self,accuracy):
 		self.acc = accuracy
-		self.NOT = Perceptron(1, bias=1.0)
+		self.NOT = Perceptron(1, bias=0.5)
 		return None
 		
 	def train(self,sessions,Generate: bool = True,verbose: bool =False): #Set default to 50.
 		generate_training_set = Generate
-		num_train = 100
+		num_train = 1000
 		generate_validation_set = Generate
-		num_valid = 100
+		num_valid = 1000
 
 		training_examples = [[1.0],
 							[1.0],
@@ -29,9 +29,9 @@ class NOTGate:
 			training_labels = []
 
 			for i in range(num_train):
-				training_examples.append([random.random()])
+				training_examples.append([random.uniform(0,1)])
 				# We want our perceptron to be noise tolerant, so we label all examples where x1 and x2 > 0.8 as 1.0
-				training_labels.append(0.0 if training_examples[i][0] > 0.75 else 1.0)
+				training_labels.append(0.0 if (training_examples[i][0] > 0.75) else 1.0)
 
 		if generate_validation_set:
 
@@ -39,8 +39,8 @@ class NOTGate:
 			validate_labels = []
 
 			for i in range(num_train):
-				validate_examples.append([random.random()])
-				validate_labels.append(0.0 if validate_examples[i][0] > 0.75 else 1.0)
+				validate_examples.append([random.uniform(0,1)])
+				validate_labels.append(0.0 if (validate_examples[i][0] > 0.75) else 1.0)
 
 
 		# Create Perceptron
@@ -55,7 +55,7 @@ class NOTGate:
 
 			i += 1
 
-			self.NOT.train(training_examples, training_labels, 0.4)  # Train our Perceptron
+			self.NOT.train(training_examples, training_labels, 0.8)  # Train our Perceptron
 			if(verbose):
 				print('------ Iteration ' + str(i) + ' ------')
 				print(self.NOT.weights)

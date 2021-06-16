@@ -24,12 +24,12 @@ class topology:
 		
 	def XORGate(self,inputs: [float]):
 		y1 = self.ANDh.activate(inputs)
-		print(y1)
+		print("AND "+str(y1))
 		y1 = self.NOTh.activate([y1])
-		print(y1)
+		print("NOT "+str(y1))
 		y2 = self.ORh.activate(inputs)
-		print(y2)
+		print("OR "+str(y2))
 		
-		print(self.ANDo.activate([y1,y2]))
+		print("AND "+str(self.ANDo.activate([y1,y2])))
 		
 		return self.ANDo.activate([y1,y2])

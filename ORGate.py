@@ -9,9 +9,9 @@ class ORGate:
 		
 	def train(self,sessions,Generate: bool = True,verbose:bool =False): #Set default to 50.
 		generate_training_set = Generate
-		num_train = 100
+		num_train = 1000
 		generate_validation_set = Generate
-		num_valid = 100
+		num_valid = 1000
 
 		training_examples = [[1.0, 1.0],
 							[1.0, 0.0],
@@ -29,9 +29,12 @@ class ORGate:
 			training_labels = []
 
 			for i in range(num_train):
-				training_examples.append([random.random(), random.random()])
-				# We want our perceptron to be noise tolerant, so we label all examples where x1 and x2 > 0.8 as 1.0
-				training_labels.append(1.0 if (training_examples[i][0] > 0.75 or training_examples[i][1] > 0.75) else 0.0)
+				false:float=random.uniform(0,0.15)
+				true:float=random.uniform(0.76,1.0)
+				
+				training_examples.append([random.choice([false,true]), random.choice([false,true])])
+				# We want our perceptron to be noise tolerant, so we label all examples where x1 and x2 > 0.75 as 1.0
+				training_labels.append(1.0 if ((training_examples[i][0] > 0.75) or (training_examples[i][1] > 0.75)) else 0.0)
 
 		if generate_validation_set:
 
@@ -39,8 +42,10 @@ class ORGate:
 			validate_labels = []
 
 			for i in range(num_train):
-				validate_examples.append([random.random(), random.random()])
-				validate_labels.append(1.0 if (validate_examples[i][0] > 0.75 or validate_examples[i][1] > 0.75) else 0.0)
+				false:float=random.uniform(0.2,0.15)
+				true:float=random.uniform(0.8,1.0)
+				validate_examples.append([random.choice([false,true]), random.choice([false,true])])
+				validate_labels.append(1.0 if ((validate_examples[i][0] > 0.75) or (validate_examples[i][1] > 0.75)) else 0.0)
 
 
 		# Create Perceptron
@@ -54,11 +59,13 @@ class ORGate:
 
 			i += 1
 
-			self.OR.train(training_examples, training_labels, 0.4)  # Train our Perceptron
+			self.OR.train(training_examples, training_labels, 0.8)  # Train our Perceptron
 			if(verbose):
 				print('------ Iteration ' + str(i) + ' ------')
 				print(self.OR.weights)
+				
 			valid_percentage = self.OR.validate(validate_examples, validate_labels, verbose) # Validate it
+			
 			if(verbose):
 				print(valid_percentage)
 
