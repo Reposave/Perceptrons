@@ -4,9 +4,9 @@ from Perceptron import Perceptron
 class ORGate:
 	def __init__(self,accuracy):
 		self.acc = accuracy
-		self.OR = Perceptron(2, bias=-1.5)
+		self.OR = Perceptron(2, bias=-2.5)
 		return None
-		
+	#Trains the perceptron.
 	def train(self,sessions,Generate: bool = True,verbose:bool =False): #Set default to 50.
 		generate_training_set = Generate
 		num_train = 1000
@@ -29,7 +29,7 @@ class ORGate:
 			training_labels = []
 
 			for i in range(num_train):
-				false:float=random.uniform(0,0.15)
+				false:float=random.uniform(0,0.25)
 				true:float=random.uniform(0.76,1.0)
 				
 				training_examples.append([random.choice([false,true]), random.choice([false,true])])
@@ -42,13 +42,13 @@ class ORGate:
 			validate_labels = []
 
 			for i in range(num_train):
-				false:float=random.uniform(0.2,0.15)
+				false:float=random.uniform(0.1,0.25)
 				true:float=random.uniform(0.8,1.0)
 				validate_examples.append([random.choice([false,true]), random.choice([false,true])])
 				validate_labels.append(1.0 if ((validate_examples[i][0] > 0.75) or (validate_examples[i][1] > 0.75)) else 0.0)
 
 
-		# Create Perceptron
+		# Train Perceptron.
 		if(verbose):
 			print(self.OR.weights)
 		valid_percentage = self.OR.validate(validate_examples, validate_labels, verbose)
@@ -74,7 +74,8 @@ class ORGate:
 			if i == sessions: 
 				break
 				
-		print("OR"+str(valid_percentage))
-			
+		#print("OR"+str(valid_percentage))
+	
+	#Used to get the threshold output from the weighted sum.	
 	def activate(self,inputs):
 		return self.OR.activate(inputs)

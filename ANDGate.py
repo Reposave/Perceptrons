@@ -6,7 +6,8 @@ class ANDGate:
 		self.acc = accuracy
 		self.AND = Perceptron(2, bias=-1.0)
 		return None
-		
+	
+	#Trains the perceptron.
 	def train(self,sessions,Generate: bool = True,verbose: bool =False): #Set default to 50.
 		generate_training_set = Generate
 		num_train = 1000
@@ -29,7 +30,10 @@ class ANDGate:
 			training_labels = []
 
 			for i in range(num_train):
-				training_examples.append([random.uniform(0,1), random.uniform(0,1)])
+				false:float=random.uniform(0,0.70)
+				true:float=random.uniform(0.76,1.0)
+				
+				training_examples.append([random.choice([false,true]), random.choice([false,true])])
 				# We want our perceptron to be noise tolerant, so we label all examples where x1 and x2 > 0.8 as 1.0
 				training_labels.append(1.0 if ((training_examples[i][0] > 0.75) and (training_examples[i][1] > 0.75)) else 0.0)
 
@@ -39,11 +43,13 @@ class ANDGate:
 			validate_labels = []
 
 			for i in range(num_train):
-				validate_examples.append([random.uniform(0,1), random.uniform(0,1)])
+				false:float=random.uniform(0.2,0.70)
+				true:float=random.uniform(0.8,1.0)
+				validate_examples.append([random.choice([false,true]), random.choice([false,true])])
 				validate_labels.append(1.0 if ((validate_examples[i][0] > 0.75) and (validate_examples[i][1] > 0.75)) else 0.0)
 
 
-		# Create Perceptron
+		# Train Perceptron
 		if(verbose):
 			print(self.AND.weights)
 		valid_percentage = self.AND.validate(validate_examples, validate_labels, verbose)
@@ -67,7 +73,8 @@ class ANDGate:
 			# You shouldn't need to do this as your networks may require much longer to train. 
 			if i == sessions: 
 				break
-		print("AND"+str(valid_percentage))	
-				
+		#print("AND"+str(valid_percentage))	
+	
+	#Used to get the threshold output from the weighted sum.		
 	def activate(self,inputs):
 		return self.AND.activate(inputs)

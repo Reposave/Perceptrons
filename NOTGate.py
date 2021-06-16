@@ -6,7 +6,8 @@ class NOTGate:
 		self.acc = accuracy
 		self.NOT = Perceptron(1, bias=0.5)
 		return None
-		
+	
+	#Trains the perceptron.
 	def train(self,sessions,Generate: bool = True,verbose: bool =False): #Set default to 50.
 		generate_training_set = Generate
 		num_train = 1000
@@ -43,7 +44,7 @@ class NOTGate:
 				validate_labels.append(0.0 if (validate_examples[i][0] > 0.75) else 1.0)
 
 
-		# Create Perceptron
+		# Train Perceptron
 		if(verbose):
 			print(self.NOT.weights)
 		valid_percentage = self.NOT.validate(validate_examples, validate_labels, verbose)
@@ -68,8 +69,9 @@ class NOTGate:
 			if i == sessions: 
 				break
 				
-		print("NOT"+str(valid_percentage))	
-		
+		#print("NOT"+str(valid_percentage))	
+	
+	#Used to get the threshold output from the weighted sum.	
 	def activate(self,inputs):
 		return self.NOT.activate(inputs)
 			
